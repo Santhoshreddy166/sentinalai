@@ -18,6 +18,7 @@ import {
   Shield,
   LogOut
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import AuthPage from './AuthPage';
@@ -399,9 +400,13 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
       <header className="bg-slate-950/45 backdrop-blur-xl border-b border-slate-900 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-gradient-to-br from-cyan-600 to-indigo-600 p-2 rounded-xl text-white shadow-md shadow-cyan-500/20">
+            <motion.div
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="bg-gradient-to-br from-cyan-600 to-indigo-600 p-2 rounded-xl text-white shadow-md shadow-cyan-500/20"
+            >
               <Shield size={20} className="stroke-[2.5]" />
-            </div>
+            </motion.div>
             <div>
               <h1 className="text-lg font-black tracking-tight text-white leading-tight">
                 Sentinal AI
@@ -412,13 +417,17 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
             </div>
           </div>
           <div className="flex items-center gap-4 text-xs font-semibold text-slate-400">
-            <div className="flex items-center gap-2 bg-emerald-950/20 border border-emerald-900/30 text-emerald-400 px-3 py-1 rounded-full text-[11px] font-medium">
+            <motion.div 
+              animate={{ y: [0, -3, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+              className="flex items-center gap-2 bg-emerald-950/20 border border-emerald-900/30 text-emerald-400 px-3 py-1 rounded-full text-[11px] font-medium"
+            >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <span>System Online</span>
-            </div>
+            </motion.div>
             <div className="h-4 w-px bg-slate-800"></div>
             {currentUser && (
               <span className="text-slate-400 text-[11px] font-medium hidden sm:inline">
@@ -452,9 +461,18 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Input Panel & Agents */}
-          <div className="lg:col-span-5 flex flex-col gap-6 w-full no-print">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="lg:col-span-5 flex flex-col gap-6 w-full no-print"
+          >
             {/* Input & Tabs Container */}
-            <div className="cyber-glass rounded-2xl border border-slate-800/80 overflow-hidden shadow-xl">
+            <motion.div 
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+              className="cyber-glass rounded-2xl border border-slate-800/80 overflow-hidden shadow-xl"
+            >
               {/* Tabs */}
               <div className="flex border-b border-slate-900 bg-slate-950/40">
                 <button
@@ -620,7 +638,7 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
                   </div>
                 )}
               </div>
-            </div>
+            </motion.div>
 
             {/* Active AI Agents Section */}
             <div className="flex flex-col gap-3">
@@ -629,7 +647,12 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
               </h3>
 
               {/* Agent 1 */}
-              <div className="bg-slate-950/40 border border-slate-900 rounded-xl p-3 flex items-center gap-3">
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="bg-slate-950/40 border border-slate-900 rounded-xl p-3 flex items-center gap-3 shadow-md hover:border-indigo-500/30 transition-colors"
+              >
                 <div className="bg-slate-900 border border-slate-800/80 p-2 rounded-lg text-slate-400 shrink-0">
                   <Activity size={16} className="text-indigo-400" />
                 </div>
@@ -637,10 +660,15 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
                   <h4 className="text-xs font-bold text-slate-200">Forensic Triage Agent</h4>
                   <p className="text-[10px] text-slate-500">Root cause & timeline reconstruction</p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Agent 2 */}
-              <div className="bg-slate-950/40 border border-slate-900 rounded-xl p-3 flex items-center gap-3">
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="bg-slate-950/40 border border-slate-900 rounded-xl p-3 flex items-center gap-3 shadow-md hover:border-cyan-500/30 transition-colors"
+              >
                 <div className="bg-slate-900 border border-slate-800/80 p-2 rounded-lg text-slate-400 shrink-0">
                   <Shield size={16} className="text-cyan-400" />
                 </div>
@@ -648,18 +676,27 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
                   <h4 className="text-xs font-bold text-slate-200">Playbook & Mitigation Agent</h4>
                   <p className="text-[10px] text-slate-500">Containment & hardening strategies</p>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Dynamic Output Panel */}
-          <div className="lg:col-span-7 w-full h-full min-h-[450px] flex flex-col">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+            className="lg:col-span-7 w-full h-full min-h-[450px] flex flex-col"
+          >
             {/* 1. Awaiting Input State */}
             {!isProcessing && !report && (
               <div className="border border-dashed border-slate-800 rounded-2xl p-10 text-center flex flex-col items-center justify-center flex-1 min-h-[400px] bg-slate-950/10">
-                <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl text-slate-400 mb-4 shadow-lg shadow-indigo-500/5">
+                <motion.div 
+                  animate={{ y: [0, -10, 0], rotate: [0, 2, -2, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                  className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl text-slate-400 mb-4 shadow-lg shadow-indigo-500/5"
+                >
                   <Brain size={32} className="text-indigo-400 stroke-[1.5]" />
-                </div>
+                </motion.div>
                 <h3 className="text-base font-bold text-slate-200 mb-2">Awaiting Input</h3>
                 <p className="text-slate-500 text-xs max-w-sm leading-relaxed">
                   Submit a suspicious URL or upload a security log file. The AI agents will analyze the threat in real time and generate a structured forensic report.
@@ -669,13 +706,21 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
 
             {/* 2. Processing/Loading State */}
             {isProcessing && (
-              <div className="cyber-glass rounded-2xl border border-slate-800/80 p-8 flex flex-col gap-6 items-center flex-1 justify-center animate-in fade-in duration-300">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="cyber-glass rounded-2xl border border-slate-800/80 p-8 flex flex-col gap-6 items-center flex-1 justify-center"
+              >
                 <div className="relative shrink-0 w-16 h-16 flex items-center justify-center">
                   <div className="absolute inset-0 bg-cyan-500/10 border border-cyan-500/20 rounded-full radar-pulse-ring"></div>
                   <div className="absolute inset-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full radar-pulse-ring" style={{ animationDelay: '0.6s' }}></div>
-                  <div className="relative bg-slate-950 border border-slate-800 text-cyan-400 p-3 rounded-full shadow-lg shadow-cyan-500/5">
+                  <motion.div
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                    className="relative bg-slate-950 border border-slate-800 text-cyan-400 p-3 rounded-full shadow-lg shadow-cyan-500/5"
+                  >
                     <Cpu size={24} className="animate-spin" style={{ animationDuration: '6s' }} />
-                  </div>
+                  </motion.div>
                 </div>
 
                 <div className="w-full max-w-md">
@@ -708,12 +753,17 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
                     })}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {/* 3. Results Panel */}
             {report && !isProcessing && (
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col h-full">
+              <motion.div 
+                initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+                className="flex flex-col h-full"
+              >
                 <div className="flex items-center justify-between mb-4 px-1 no-print">
                   <h2 className="text-base font-bold text-slate-100 flex items-center gap-2">
                     <CheckCircle2 className="text-emerald-500" size={18} />
@@ -774,9 +824,9 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
-          </div>
+          </motion.div>
         </div>
       </main>
 
