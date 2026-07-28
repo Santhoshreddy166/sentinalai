@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #05070e; /* Deep cyber-space black */
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 0%, rgba(6, 182, 212, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: #e2e8f0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Glassmorphism Classes */
+.cyber-glass {
+  background: rgba(10, 15, 30, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.cyber-glass-glow {
+  background: rgba(10, 15, 30, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.1);
+}
+
+/* Markdown Forensic Report Custom Styles */
+.markdown-report {
+  font-size: 0.975rem;
+}
+
+.markdown-report h3 {
+  @apply text-lg font-bold mt-0 mb-4 flex items-center gap-2 border-b border-slate-800 pb-2 text-slate-100;
+  font-family: 'Outfit', sans-serif;
+}
+
+.markdown-report p {
+  @apply text-slate-300 leading-relaxed mb-4;
+}
+
+.markdown-report ul {
+  @apply list-disc list-inside mb-4 space-y-1.5 text-slate-300;
+}
+
+.markdown-report ol {
+  @apply list-decimal list-inside mb-4 space-y-1.5 text-slate-300;
+}
+
+.markdown-report li {
+  @apply text-slate-300 leading-relaxed;
+}
+
+.markdown-report li > ul, .markdown-report li > ol {
+  @apply ml-6 mt-1.5 mb-0;
+}
+
+.markdown-report strong {
+  @apply font-semibold text-white;
+}
+
+.markdown-report table {
+  @apply w-full text-left border-collapse my-5 rounded-lg overflow-hidden border border-slate-800;
+}
+
+.markdown-report th {
+  @apply bg-slate-950/80 text-slate-200 font-semibold p-3 border-b border-slate-800 text-xs uppercase tracking-wider;
+}
+
+.markdown-report td {
+  @apply p-3 border-b border-slate-800/80 text-slate-300 bg-slate-950/10 text-sm;
+}
+
+.markdown-report tr:last-child td {
+  @apply border-b-0;
+}
+
+.markdown-report code {
+  font-family: 'Fira Code', monospace;
+  @apply bg-slate-950/80 text-cyan-400 px-1.5 py-0.5 rounded text-xs border border-slate-800;
+}
+
+/* Section specific styling for reports */
+.section-summary {
+  @apply bg-slate-900/10 border border-slate-800/60 rounded-2xl p-6 shadow-sm my-6 backdrop-blur-md transition-all hover:border-slate-700/30;
+  background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.3) 0%, rgba(30, 41, 59, 0.1) 100%);
+}
+
+.section-forensics {
+  @apply border border-slate-800/40 rounded-2xl p-6 shadow-sm my-6 backdrop-blur-md transition-all hover:border-cyan-500/20;
+  border-left: 4px solid #06b6d4;
+  background-image: linear-gradient(135deg, rgba(6, 182, 212, 0.02) 0%, rgba(15, 23, 42, 0.3) 100%);
+}
+
+.section-containment {
+  @apply border border-slate-800/40 rounded-2xl p-6 shadow-sm my-6 backdrop-blur-md transition-all hover:border-rose-500/20;
+  border-left: 4px solid #f43f5e;
+  background-image: linear-gradient(135deg, rgba(244, 63, 94, 0.02) 0%, rgba(15, 23, 42, 0.3) 100%);
+}
+
+.section-prevention {
+  @apply border border-slate-800/40 rounded-2xl p-6 shadow-sm my-6 backdrop-blur-md transition-all hover:border-indigo-500/20;
+  border-left: 4px solid #6366f1;
+  background-image: linear-gradient(135deg, rgba(99, 102, 241, 0.02) 0%, rgba(15, 23, 42, 0.3) 100%);
+}
+
+/* Animation utilities */
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.radar-pulse-ring {
+  animation: radar-pulse 2s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #05070e;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Custom print CSS for PDF printing */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    background-image: none !important;
+    font-size: 11pt;
+  }
+  header, 
+  footer,
+  button, 
+  .no-print,
+  .flex.items-center.justify-between.mb-6,
+  .report-meta-header {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+  .bg-white, .cyber-glass, .cyber-glass-glow {
+    background: #ffffff !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  /* Force expand scrollable and height-limited containers for print */
+  .prose,
+  .overflow-y-auto,
+  .markdown-report,
+  div,
+  main {
+    max-height: none !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+  /* Make report panel span full width in print */
+  .lg\:col-span-7 {
+    grid-column: span 12 / span 12 !important;
+    width: 100% !important;
+  }
+  .markdown-report h3 {
+    color: #000000 !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+  }
+  .markdown-report p, .markdown-report li, .markdown-report td {
+    color: #334155 !important;
+  }
+  .markdown-report th {
+    background-color: #f1f5f9 !important;
+    color: #000000 !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+  }
+  .markdown-report td {
+    border-bottom: 1px solid #e2e8f0 !important;
+  }
+  .section-summary, .section-forensics, .section-containment, .section-prevention {
+    border: 1px solid #cbd5e1 !important;
+    border-left-width: 5px !important;
+    background: #f8fafc !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    margin: 20px 0 !important;
+    padding: 20px !important;
+    border-radius: 8px !important;
+  }
+  .section-summary {
+    border-left-color: #475569 !important;
+  }
+  .section-forensics {
+    border-left-color: #0891b2 !important;
+  }
+  .section-containment {
+    border-left-color: #e11d48 !important;
+  }
+  .section-prevention {
+    border-left-color: #4f46e5 !important;
+  }
+  .markdown-report code {
+    background: #f1f5f9 !important;
+    color: #b91c1c !important;
+    border: 1px solid #e2e8f0 !important;
+  }
+}

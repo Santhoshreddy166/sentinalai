@@ -1,0 +1,29 @@
+# Sample log file for testing the /api/upload-log endpoint
+# Contains a mix of Apache access log, syslog, and Windows Event log lines
+
+# --- Apache Combined Log Format ---
+192.168.1.100 - admin [09/Jul/2024:14:23:45 +0000] "GET /admin/dashboard HTTP/1.1" 200 4523 "-" "Mozilla/5.0"
+10.0.0.55 - - [09/Jul/2024:14:23:46 +0000] "POST /login HTTP/1.1" 401 312 "-" "curl/7.68.0"
+10.0.0.55 - - [09/Jul/2024:14:23:47 +0000] "POST /login HTTP/1.1" 401 312 "-" "curl/7.68.0"
+10.0.0.55 - - [09/Jul/2024:14:23:48 +0000] "POST /login HTTP/1.1" 401 312 "-" "curl/7.68.0"
+10.0.0.55 - - [09/Jul/2024:14:23:49 +0000] "POST /login HTTP/1.1" 403 215 "-" "curl/7.68.0"
+172.16.0.10 - - [09/Jul/2024:14:24:01 +0000] "GET /api/users HTTP/1.1" 200 8921 "-" "Python-urllib/3.8"
+192.168.1.200 - - [09/Jul/2024:14:25:30 +0000] "GET /wp-admin/ HTTP/1.1" 404 1234 "-" "Googlebot/2.1"
+
+# --- Syslog Format (Linux firewall) ---
+Jul  9 14:30:12 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=203.0.113.50 DST=10.0.0.1 PROTO=TCP DPT=22
+Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=203.0.113.50 DST=10.0.0.1 PROTO=TCP DPT=22
+Jul  9 14:31:00 fw01 kernel: [UFW ALLOW] IN=eth0 OUT= SRC=192.168.1.5 DST=10.0.0.1 PROTO=TCP DPT=443
+Jul  9 14:32:45 sshd[12345]: Failed password for root from 198.51.100.23 port 45678 ssh2
+
+# --- Windows Event Log (exported as text) ---
+2024-07-09 14:35:00 Security Event ID: 4625 An account failed to log on. Source: 10.0.0.55 Target: DC01
+2024-07-09 14:35:01 Security Event ID: 4625 An account failed to log on. Source: 10.0.0.55 Target: DC01
+2024-07-09 14:35:02 Security Event ID: 4625 An account failed to log on. Source: 10.0.0.55 Target: DC01
+2024-07-09 14:36:00 Security Event ID: 4624 An account was successfully logged on. Source: 192.168.1.10 Target: DC01
+2024-07-09 14:37:00 Security EventID=4720 A user account was created. Source: 10.0.0.55 Target: DC01
+
+# --- Blank and noise lines (should be skipped) ---
+
+This is a non-structured comment line with no parsable data.
+========================================

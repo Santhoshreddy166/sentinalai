@@ -1,0 +1,9 @@
+fastapi<0.100.0
+uvicorn
+python-multipart
+pandas
+pydantic<2.0.0
+aiofiles
+requests
+httpx
+pytest
