@@ -368,8 +368,8 @@ async def soc_analyze_endpoint(payload: SOCAnalysisRequest, request: Request):
 
     simulated_delay = 0.0
     if not is_automated_client:
-        # Simulate deep agentic triage taking between 1 to 5 minutes (randomly 60 to 120s)
-        simulated_delay = float(random.randint(60, 120))
+        # Simulate agentic triage (kept short for good UX)
+        simulated_delay = float(random.randint(10, 20))
         logger.info("Simulating autonomous agent reasoning time: %.1fs", simulated_delay)
         await asyncio.sleep(simulated_delay)
 

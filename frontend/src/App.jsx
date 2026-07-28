@@ -100,24 +100,7 @@ function App() {
     } catch { return null; }
   });
 
-  const handleLogin = (user) => {
-    setCurrentUser(user);
-    setIsAuthenticated(true);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('sentinal_token');
-    localStorage.removeItem('sentinal_user');
-    setIsAuthenticated(false);
-    setCurrentUser(null);
-  };
-
-  // If not authenticated, show the auth page
-  if (!isAuthenticated) {
-    return <AuthPage onLogin={handleLogin} />;
-  }
-
-  // --- App State ---
+  // --- App State (must be declared before any conditional return) ---
   const [activeTab, setActiveTab] = useState('url');
   const [isProcessing, setIsProcessing] = useState(false);
   const [urlInput, setUrlInput] = useState('');
@@ -143,12 +126,30 @@ function App() {
       setLoadingStage(0);
       interval = setInterval(() => {
         setLoadingStage(prev => (prev < loadingSteps.length - 1 ? prev + 1 : prev));
-      }, 12000);
+      }, 4000);
     } else {
       setLoadingStage(0);
     }
     return () => clearInterval(interval);
   }, [isProcessing]);
+
+  // --- Auth Handlers ---
+  const handleLogin = (user) => {
+    setCurrentUser(user);
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('sentinal_token');
+    localStorage.removeItem('sentinal_user');
+    setIsAuthenticated(false);
+    setCurrentUser(null);
+  };
+
+  // If not authenticated, show the auth page
+  if (!isAuthenticated) {
+    return <AuthPage onLogin={handleLogin} />;
+  }
 
   const handleAnalyze = async () => {
     if (activeTab === 'url' && !urlInput) return;
