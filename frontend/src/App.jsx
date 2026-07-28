@@ -84,7 +84,7 @@ function parseReport(reportText) {
   return sections;
 }
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = 'https://sentinalai-fxjz.onrender.com';
 
 function App() {
   const [activeTab, setActiveTab] = useState('url');
