@@ -217,3 +217,54 @@ class SOCAnalysisResponse(BaseModel):
     execution_time_s: float = Field(
         ..., description="Wall-clock time to generate the report in seconds."
     )
+
+
+# ------------------------------------------------------------------
+# Module 5 - Authentication Schemas
+# ------------------------------------------------------------------
+
+class SignUpRequest(BaseModel):
+    """Incoming payload for the /api/auth/signup endpoint."""
+    name: str = Field(
+        ...,
+        description="The user's display name.",
+        min_length=1,
+        max_length=100,
+    )
+    email: str = Field(
+        ...,
+        description="The user's email address.",
+        example="analyst@example.com",
+    )
+    password: str = Field(
+        ...,
+        description="The user's password (min 6 characters).",
+        min_length=6,
+        max_length=128,
+    )
+
+
+class SignInRequest(BaseModel):
+    """Incoming payload for the /api/auth/signin endpoint."""
+    email: str = Field(
+        ...,
+        description="The user's email address.",
+        example="analyst@example.com",
+    )
+    password: str = Field(
+        ...,
+        description="The user's password.",
+    )
+
+
+class AuthUserInfo(BaseModel):
+    """User info returned after successful authentication."""
+    id: str = Field(..., description="Unique user identifier.")
+    name: str = Field(..., description="User display name.")
+    email: str = Field(..., description="User email address.")
+
+
+class AuthResponse(BaseModel):
+    """Response returned by signup and signin endpoints."""
+    token: str = Field(..., description="JWT bearer token for subsequent requests.")
+    user: AuthUserInfo

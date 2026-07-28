@@ -41,6 +41,26 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.1);
 }
 
+/* Auth Page Styles */
+.auth-card {
+  position: relative;
+  transition: box-shadow 0.4s ease;
+}
+
+.auth-card:hover {
+  box-shadow: 0 0 40px -8px rgba(99, 102, 241, 0.15),
+              0 0 60px -12px rgba(6, 182, 212, 0.1);
+}
+
+.auth-input {
+  transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.08),
+              inset 0 0 12px rgba(6, 182, 212, 0.03);
+}
+
 /* Markdown Forensic Report Custom Styles */
 .markdown-report {
   font-size: 0.975rem;

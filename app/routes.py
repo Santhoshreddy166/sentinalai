@@ -22,8 +22,11 @@ from fastapi import APIRouter, File, HTTPException, UploadFile, Request
 from app.config import ALLOWED_LOG_EXTENSIONS, MAX_UPLOAD_SIZE_BYTES
 from app.log_parser import parse_log_lines_pandas, parse_log_lines_regex
 from app.schemas import (
+    AuthResponse,
     IPReputationRequest,
     LogUploadResponse,
+    SignInRequest,
+    SignUpRequest,
     SOCAnalysisRequest,
     SOCAnalysisResponse,
     ThreatIntelResponse,
@@ -34,6 +37,7 @@ from app.schemas import (
 from app.url_analyzer import analyze_url
 from app.threat_intel import check_url_reputation, check_ip_reputation
 from app.ai_agents import run_autonomous_soc
+from app.auth import register_user, login_user
 
 logger = logging.getLogger(__name__)
 
@@ -388,3 +392,45 @@ async def soc_analyze_endpoint(payload: SOCAnalysisRequest, request: Request):
             detail="SOC analysis failed: {}".format(exc),
         )
 
+
+# ------------------------------------------------------------------
+# Module 5 - Authentication Endpoints
+# ------------------------------------------------------------------
+
+auth_router = APIRouter(prefix="/api/auth", tags=["Authentication"])
+
+
+@auth_router.post(
+    "/signup",
+    response_model=AuthResponse,
+    summary="Register a new user account",
+    description="Creates a new user with name, email, and password. Returns a JWT token.",
+)
+async def signup_endpoint(payload: SignUpRequest):
+    """Register a new user and return a JWT token."""
+    logger.info("Signup request for: %s", payload.email)
+    success, message, data = register_user(payload.name, payload.email, payload.password)
+    if not success:
+        raise HTTPException(status_code=400, detail=message)
+    return AuthResponse(
+        token=data["token"],
+        user=data["user"],
+    )
+
+
+@auth_router.post(
+    "/signin",
+    response_model=AuthResponse,
+    summary="Sign in to an existing account",
+    description="Authenticates with email and password. Returns a JWT token.",
+)
+async def signin_endpoint(payload: SignInRequest):
+    """Authenticate a user and return a JWT token."""
+    logger.info("Signin request for: %s", payload.email)
+    success, message, data = login_user(payload.email, payload.password)
+    if not success:
+        raise HTTPException(status_code=401, detail=message)
+    return AuthResponse(
+        token=data["token"],
+        user=data["user"],
+    )

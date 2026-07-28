@@ -15,10 +15,12 @@ import {
   Terminal,
   AlertTriangle,
   Brain,
-  Shield
+  Shield,
+  LogOut
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import AuthPage from './AuthPage';
 
 function parseReport(reportText) {
   if (!reportText) return [];
@@ -87,6 +89,35 @@ function parseReport(reportText) {
 const API_BASE = 'https://sentinalai-fxjz.onrender.com';
 
 function App() {
+  // --- Auth State ---
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return !!localStorage.getItem('sentinal_token');
+  });
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const stored = localStorage.getItem('sentinal_user');
+      return stored ? JSON.parse(stored) : null;
+    } catch { return null; }
+  });
+
+  const handleLogin = (user) => {
+    setCurrentUser(user);
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('sentinal_token');
+    localStorage.removeItem('sentinal_user');
+    setIsAuthenticated(false);
+    setCurrentUser(null);
+  };
+
+  // If not authenticated, show the auth page
+  if (!isAuthenticated) {
+    return <AuthPage onLogin={handleLogin} />;
+  }
+
+  // --- App State ---
   const [activeTab, setActiveTab] = useState('url');
   const [isProcessing, setIsProcessing] = useState(false);
   const [urlInput, setUrlInput] = useState('');
@@ -387,7 +418,19 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
               <span>System Online</span>
             </div>
             <div className="h-4 w-px bg-slate-800"></div>
-            <span className="font-mono text-slate-500">v0.2.0</span>
+            {currentUser && (
+              <span className="text-slate-400 text-[11px] font-medium hidden sm:inline">
+                {currentUser.name}
+              </span>
+            )}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-1.5 bg-slate-900/80 border border-slate-800 hover:bg-rose-950/30 hover:border-rose-900/40 text-slate-400 hover:text-rose-400 px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-all active:scale-[0.96]"
+              title="Sign out"
+            >
+              <LogOut size={11} />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
           </div>
         </div>
       </header>
