@@ -10,7 +10,7 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes import router, threat_router, soc_router, auth_router
+from app.routes import router, threat_router, soc_router, auth_router, chat_router
 
 # ------------------------------------------------------------------
 # Logging Configuration
@@ -59,6 +59,7 @@ app.include_router(router)
 app.include_router(threat_router)
 app.include_router(soc_router)
 app.include_router(auth_router)
+app.include_router(chat_router)
 
 
 # ------------------------------------------------------------------

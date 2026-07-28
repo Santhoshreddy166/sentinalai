@@ -268,3 +268,35 @@ class AuthResponse(BaseModel):
     """Response returned by signup and signin endpoints."""
     token: str = Field(..., description="JWT bearer token for subsequent requests.")
     user: AuthUserInfo
+
+
+# ------------------------------------------------------------------
+# Module 6 - AI Security Chatbot Schemas
+# ------------------------------------------------------------------
+
+class ChatMessage(BaseModel):
+    """A single message in the conversation thread."""
+    role: str = Field(..., description="'user' or 'assistant'.")
+    content: str = Field(..., description="The message body text.")
+
+
+class ChatRequest(BaseModel):
+    """Incoming payload for the /api/chat endpoint."""
+    messages: List[ChatMessage] = Field(
+        ..., description="Full conversation history up to the latest user message."
+    )
+    report_context: Optional[str] = Field(
+        default=None, description="Optional active markdown incident report context."
+    )
+    active_target: Optional[str] = Field(
+        default=None, description="Optional active target (URL or log filename)."
+    )
+
+
+class ChatResponse(BaseModel):
+    """Response returned by the AI chatbot endpoint."""
+    reply: str = Field(..., description="AI Security Assistant response.")
+    suggested_actions: Optional[List[str]] = Field(
+        default=None, description="Quick follow-up prompt recommendations."
+    )
+

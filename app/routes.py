@@ -23,6 +23,8 @@ from app.config import ALLOWED_LOG_EXTENSIONS, MAX_UPLOAD_SIZE_BYTES
 from app.log_parser import parse_log_lines_pandas, parse_log_lines_regex
 from app.schemas import (
     AuthResponse,
+    ChatRequest,
+    ChatResponse,
     IPReputationRequest,
     LogUploadResponse,
     SignInRequest,
@@ -38,6 +40,7 @@ from app.url_analyzer import analyze_url
 from app.threat_intel import check_url_reputation, check_ip_reputation
 from app.ai_agents import run_autonomous_soc
 from app.auth import register_user, login_user
+from app.chatbot import process_chat_query
 
 logger = logging.getLogger(__name__)
 
@@ -434,3 +437,37 @@ async def signin_endpoint(payload: SignInRequest):
         token=data["token"],
         user=data["user"],
     )
+
+
+# ------------------------------------------------------------------
+# Module 6 - AI Security Chatbot Endpoint
+# ------------------------------------------------------------------
+
+chat_router = APIRouter(prefix="/api", tags=["AI Chatbot"])
+
+
+@chat_router.post(
+    "/chat",
+    response_model=ChatResponse,
+    summary="Interact with AI Security Assistant",
+    description="Accepts message history and incident context to generate expert SOC guidance.",
+)
+async def chat_endpoint(payload: ChatRequest):
+    """Process user query and return AI Security Assistant response."""
+    try:
+        reply, suggested_actions = process_chat_query(
+            messages=payload.messages,
+            report_context=payload.report_context,
+            active_target=payload.active_target,
+        )
+        return ChatResponse(
+            reply=reply,
+            suggested_actions=suggested_actions,
+        )
+    except Exception as exc:
+        logger.exception("AI Chatbot request failed.")
+        raise HTTPException(
+            status_code=500,
+            detail="Chatbot processing error: {}".format(exc),
+        )
+

@@ -21,6 +21,7 @@ import {
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import AuthPage from './AuthPage';
+import AIChatbot from './AIChatbot';
 
 function parseReport(reportText) {
   if (!reportText) return [];
@@ -783,6 +784,12 @@ Jul  9 14:30:15 fw01 kernel: [UFW BLOCK] IN=eth0 OUT= SRC=185.215.113.42 DST=10.
       <footer className="mt-auto border-t border-slate-900 bg-slate-950/20 py-5 text-center text-slate-500 text-[11px] font-medium tracking-wide">
         <p>SENTINAL AI &copy; 2026. SECURE DISCLOSURE SYSTEM. PRIVILEGED ACCESS ONLY.</p>
       </footer>
+
+      {/* AI Security Assistant Chatbot */}
+      <AIChatbot
+        reportContext={report}
+        activeTarget={activeTab === 'url' ? urlInput : (selectedFile ? selectedFile.name : null)}
+      />
     </div>
   );
 }
